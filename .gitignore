@@ -112,7 +112,8 @@ Legacy/services.json
 
 .idea
 .idea/*
-
+out/
+out/*
 gradlew*
 gradle
 gradle/*
