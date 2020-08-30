@@ -76,7 +76,6 @@ class AuthController {
                     .body<Any>(MessageResponse("Error: Email is already in use!"))
         }
 
-        // Create new user's account
         val user = UserModel(signUpRequest.username,
                 signUpRequest.email,
                 encoder.encode(signUpRequest.password))
