@@ -48,7 +48,8 @@ class AuthController {
     @PostMapping("/signin")
     fun authenticateUser(@RequestBody loginRequest: @Valid LoginRequest): ResponseEntity<*> {
 
-        val authentication: Authentication = authenticationManager.authenticate(UsernamePasswordAuthenticationToken(loginRequest.username, loginRequest.password))
+        val authentication: Authentication = authenticationManager
+                .authenticate(UsernamePasswordAuthenticationToken(loginRequest.username, loginRequest.password))
         SecurityContextHolder.getContext().authentication = authentication
         val jwt = jwtUtils.generateJwtToken(authentication)
         val userDetails: UserDetailsImplementation = authentication.principal as UserDetailsImplementation
@@ -77,37 +78,38 @@ class AuthController {
 
         // Create new user's account
         val user = UserModel(signUpRequest.username,
-                                signUpRequest.email,
-                                encoder.encode(signUpRequest.password))
-        val strRoles: kotlin.collections.Set<String>? = signUpRequest.role
+                signUpRequest.email,
+                encoder.encode(signUpRequest.password))
+        val strRoles: Set<String>? = signUpRequest.role
         val roles: HashSet<RoleModel> = HashSet<RoleModel>()
         println()
         if (strRoles == null) {
-            val userRole: RoleModel = roleRepository.findByName(ERole.ROLE_USER)!!.orElseThrow(Supplier { java.lang.RuntimeException("") })!!
+            val userRole: RoleModel = roleRepository.findByName(ERole.ROLE_USER)!!
+                    .orElseThrow { java.lang.RuntimeException("") }!!
 
         } else {
             strRoles.forEach(Consumer { role: String? ->
                 when (role) {
                     "admin" -> {
                         val adminRole: RoleModel = roleRepository.findByName(ERole.ROLE_ADMIN)
-                                ?.orElseThrow(Supplier { RuntimeException("Error: Role is not found.") })!!
+                                ?.orElseThrow { RuntimeException("Error: Role is not found.") }!!
                         roles.add(adminRole)
                     }
 
                     "pm" -> {
                         val pmRole: RoleModel = roleRepository.findByName(ERole.ROLE_PM)
-                                ?.orElseThrow(Supplier { RuntimeException("Error: Role is not found.") })!!
+                                ?.orElseThrow { RuntimeException("Error: Role is not found.") }!!
                         roles.add(pmRole)
                     }
                     else -> {
                         val userRole: RoleModel = roleRepository.findByName(ERole.ROLE_USER)
-                                ?.orElseThrow(Supplier { RuntimeException("Error: Role is not found.") })!!
+                                ?.orElseThrow { RuntimeException("Error: Role is not found.") }!!
                         roles.add(userRole)
                     }
                 }
             })
         }
-        user.roles=roles
+        user.roles = roles
         userRepository.save<UserModel>(user)
         return ResponseEntity.ok<Any>(MessageResponse("User registered successfully!"))
     }
