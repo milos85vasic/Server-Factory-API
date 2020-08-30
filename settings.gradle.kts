@@ -1,1 +1,1 @@
-rootProject.name = "server-Factory-API"
+rootProject.name = "Server-Factory-API"
