@@ -9,7 +9,7 @@ plugins {
 	kotlin("plugin.jpa") version kotlinVersion
 }
 
-group = "com.example"
+group = "net.milosvasic.factory.api"
 version = "0.0.1-SNAPSHOT"
 java.sourceCompatibility = JavaVersion.VERSION_11
 
