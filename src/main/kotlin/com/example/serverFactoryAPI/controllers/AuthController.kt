@@ -83,6 +83,7 @@ class AuthController {
         val roles: HashSet<RoleModel> = HashSet<RoleModel>()
         println()
         if (strRoles == null) {
+            // FIXME:
             val userRole: RoleModel = roleRepository.findByName(ERole.ROLE_USER)!!
                     .orElseThrow { java.lang.RuntimeException("") }!!
 
