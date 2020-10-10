@@ -6,16 +6,19 @@ plugins {
 	id("org.springframework.boot") version "2.3.3.RELEASE"
 	id("io.spring.dependency-management") version "1.0.10.RELEASE"
 	kotlin("jvm") version kotlinVersion
-	kotlin("plugin.spring") version kotlinVersion
 	kotlin("plugin.jpa") version kotlinVersion
+	kotlin("plugin.spring") version kotlinVersion
 }
 
-group = "net.milosvasic.factory.api"
 version = "1.0.0"
+group = "net.milosvasic.factory.api"
 java.sourceCompatibility = JavaVersion.VERSION_1_8
 
 repositories {
+
 	mavenCentral()
+	google()
+	jcenter()
 }
 
 dependencies {
