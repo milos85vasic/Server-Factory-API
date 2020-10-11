@@ -10,6 +10,7 @@ import javax.validation.constraints.Size
 
 @Repository
 interface UserRepository : JpaRepository<UserModel?, Long?> {
+
     fun findByUsername(username: String): Optional<UserModel?>
 
     fun existsByUsername(username: @NotBlank @Size(max = 20, min = 3) String?):Boolean
