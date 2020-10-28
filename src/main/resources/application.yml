@@ -1,20 +1,35 @@
-mailServerFactoryAPI:
-    app:
-        jwtExpirationMs: 86400000
-        jwtSecret: mailServerFactoryAPISecretKey
-server:
-    port: 8081
 spring:
-    datasource:
-        password: secret
-        url: jdbc:postgresql://localhost:5432/UserDB
-        username: admin
-    jpa:
-        hibernate:
-            ddl-auto: update
-        properties:
-            hibernate:
-                dialect: org.hibernate.dialect.PostgreSQLDialect
-                jdbc:
-                    lob:
-                        non_contextual_creation: true
+  datasource:
+    password: secret
+    url: jdbc:postgresql://localhost:5432/ServerFactoryDB
+    username: admin
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        jdbc:
+          lob:
+            non_contextual_creation: true
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            clientId: 405824886525-8oadc2gts1vtoun89lrp6ctv1fli0l9l.apps.googleusercontent.com
+            clientSecret: nayXWYWZrqciBF_grUka73us
+            redirectUri: "{baseUrl}/login/oauth2/code/{registrationId}"
+            scope:
+              - email
+              - profile
+app:
+  auth:
+    tokenSecret: 926D96C90030DD58429D2751AC1BDBBC
+    tokenExpirationMSec: 864000000
+  oauth2:
+    authorizedRedirectUris:
+      - http://localhost:8082/login/oauth2/code/google
+      - http://localhost:8082/api/user/me
+server:
+  port: 8082
